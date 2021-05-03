@@ -24,44 +24,40 @@ public:
         stop = _stop;
     }
 
+    Window(vector<int> _array)
+    {
+        vector<int> sorted = _array;
+        sort(sorted.begin(), sorted.end());
+
+        for (int i = 0; i < _array.size(); i++)
+        {
+            if (_array[i] != sorted[i])
+            {
+                start = i;
+                break;
+            }
+        }
+
+        for (int j = _array.size() - 1; j >= 0; j--)
+        {
+            if (_array[j] != sorted[j])
+            {
+                stop = j;
+                break;
+            }
+        }
+    }
+
     void print()
     {
         printf("< Window  ||  start: %d  ||  stop: %d >\n", start, stop);
     }
 };
 
-Window findWindow(vector<int> arr)
-{
-    vector<int> sorted = arr;
-    sort(sorted.begin(), sorted.end());
-
-    int start;
-    for (int i = 0; i < arr.size(); i++)
-    {
-        if (arr[i] != sorted[i])
-        {
-            start = i;
-            break;
-        }
-    }
-
-    int stop;
-    for (int j = arr.size() - 1; j >= 0; j--)
-    {
-        if (arr[j] != sorted[j])
-        {
-            stop = j;
-            break;
-        }
-    }
-
-    return Window(start, stop);
-}
-
 int main()
 {
 
-    Window window = findWindow(vector<int>{3, 7, 5, 6, 9});
+    Window window(vector<int>{3, 7, 5, 6, 9});
     window.print();
 
     return 0;
